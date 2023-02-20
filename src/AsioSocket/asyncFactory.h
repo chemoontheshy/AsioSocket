@@ -10,14 +10,21 @@ namespace hs
 	namespace net
 	{
 		
+		/// <summary>
+		/// 异步Socket产生器
+		/// </summary>
 		class AsyncFactory final : public AsyncFactoryBase
 		{
 		public:
+			/// <summary>
+			/// 构造函数
+			/// </summary>
+			/// <param name="count"></param>
 			AsyncFactory(const size_t count = std::thread::hardware_concurrency());
 
 			~AsyncFactory();
 
-			AsyncBasePtr CreateAsyncBase(const AsyncParam& __HS_IN asyncParam, AsyncRecvData asyncRecvData) override;
+			AsyncBasePtr CreateAsyncBase(const AsyncParam& __HS_IN asyncParam, AsyncRecvData asyncRecvData,void* pUser) override;
 
 		private:
 			size_t                                               m_iIndex;

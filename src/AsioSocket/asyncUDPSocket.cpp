@@ -1,10 +1,10 @@
 #include "asyncUDPSocket.h"
 using namespace hs::net;
 
-hs::net::AsyncUDPSocket::AsyncUDPSocket(asio::io_context& context, const AsyncParam& asyncParam, AsyncRecvData asyncRecvData):
-	m_pLocalEndPoint(asio::ip::udp::v4(),asyncParam.Port),
-	m_pRemoteEndPoint(asio::ip::address_v4::from_string(asyncParam.DstIP),asyncParam.DstPort),
-	m_pUDPSocket(nullptr),m_pAsyncRecvData(asyncRecvData)
+hs::net::AsyncUDPSocket::AsyncUDPSocket(asio::io_context& context, const AsyncParam& asyncParam, AsyncRecvData asyncRecvData, void* pUser):
+	m_pLocalEndPoint(asio::ip::udp::v4(), asyncParam.Port),
+	m_pRemoteEndPoint(asio::ip::address_v4::from_string(asyncParam.DstIP), asyncParam.DstPort),
+	m_pUDPSocket(nullptr), m_pAsyncRecvData(asyncRecvData)
 {
 	m_lstMemeoryUsed.resize(asyncParam.MaxLength);
 	m_pPacket.Data = m_lstMemeoryUsed.data();
@@ -39,11 +39,11 @@ void hs::net::AsyncUDPSocket::doReadLoop()
 	if (m_pUDPSocket)
 	{
 		m_pUDPSocket->async_receive_from(asio::buffer(m_pPacket.Data, m_pPacket.Length),
-			m_pLocalEndPoint, std::bind(&AsyncUDPSocket::readHaddle, this, std::placeholders::_1, std::placeholders::_2));
+			m_pLocalEndPoint, std::bind(&AsyncUDPSocket::readHandle, this, std::placeholders::_1, std::placeholders::_2));
 	}
 }
 
-void AsyncUDPSocket::readHaddle(const asio::error_code& error, std::size_t byte_transferred)
+void AsyncUDPSocket::readHandle(const asio::error_code& error, std::size_t byte_transferred)
 {
 	m_pAsyncRecvData(m_pPacket.Data, byte_transferred, nullptr);
 	doReadLoop();

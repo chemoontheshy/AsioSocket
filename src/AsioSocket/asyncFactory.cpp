@@ -29,21 +29,21 @@ AsyncFactory::~AsyncFactory()
 	}
 }
 
-AsyncBasePtr AsyncFactory::CreateAsyncBase(const AsyncParam& __HS_IN asyncParam, AsyncRecvData asyncRecvData)
+AsyncBasePtr hs::net::AsyncFactory::CreateAsyncBase(const AsyncParam& __HS_IN asyncParam, AsyncRecvData asyncRecvData, void* pUser)
 {
 	m_iIndex = (++m_iIndex) % (m_lstIoContext.size());
 	switch (asyncParam.Type)
 	{
 	case NetType::UDP:
-		{
-			return AsyncBasePtr(new AsyncUDPSocket(m_lstIoContext.at(m_iIndex), asyncParam, asyncRecvData));
-		}
-		break;
+	{
+		return AsyncBasePtr(new AsyncUDPSocket(m_lstIoContext.at(m_iIndex), asyncParam, asyncRecvData,pUser));
+	}
+	break;
 	case NetType::TCP:
-		{
-			//To需要新建一个TCP实例
-		}
-		break;
+	{
+		//To需要新建一个TCP实例
+	}
+	break;
 	default:
 		break;
 	}
