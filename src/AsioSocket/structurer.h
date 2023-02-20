@@ -37,7 +37,7 @@ namespace hs
 		/// <summary>
 		/// 统一回调函数
 		/// </summary>
-		typedef void(*AsyncRecvData)(const uint8_t* data, const size_t length, void* pUser);
+		typedef void(*AsyncRecvData)(uint8_t* data, const size_t length, void* pUser);
 	}
 }
 

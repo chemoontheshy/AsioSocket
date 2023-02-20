@@ -4,12 +4,15 @@
 
 char temp[1500] = { 0 };
 
-static void RecvData(const uint8_t* data, const size_t length, void* pUser)
+static void RecvData(uint8_t* data, const size_t length, void* pUser)
 {
-	std::cout << length << std::endl;
-	memcpy(&temp[0], data, length);
-	auto s = std::string(&temp[0], length);
-	std::cout << "data:" << s;
+	if (length > 0)
+	{
+		std::cout << length << std::endl;
+		memcpy(&temp[0], data, length);
+		auto s = std::string(&temp[0], length);
+		std::cout << "data:" << s;
+	}
 }
 
 

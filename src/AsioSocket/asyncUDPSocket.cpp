@@ -40,11 +40,18 @@ void hs::net::AsyncUDPSocket::doReadLoop()
 	{
 		m_pUDPSocket->async_receive_from(asio::buffer(m_pPacket.Data, m_pPacket.Length),
 			m_pLocalEndPoint, std::bind(&AsyncUDPSocket::readHandle, this, std::placeholders::_1, std::placeholders::_2));
+
 	}
 }
 
 void AsyncUDPSocket::readHandle(const asio::error_code& error, std::size_t byte_transferred)
 {
-	m_pAsyncRecvData(m_pPacket.Data, byte_transferred, nullptr);
+	if (!error)
+	{
+		m_pAsyncRecvData(m_pPacket.Data, byte_transferred, nullptr);
+
+		std::cout << "r" << m_pUDPSocket->remote_endpoint().address().to_v4().to_string() << std::endl;
+		//std::cout << "r" << m_pUDPSocket->remote_endpoint().port() << std::endl;
+	}
 	doReadLoop();
 }
