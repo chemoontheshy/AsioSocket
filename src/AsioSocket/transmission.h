@@ -56,11 +56,12 @@ namespace hs
 			virtual AsyncBasePtr CreateAsyncBase(const AsyncParam& asyncParam, AsyncRecvData asyncUdpRecvData,void* pUser) = 0;
 		};
 
+		using AsyncFactoryBasePtr = std::shared_ptr<AsyncFactoryBase>;
 		/// <summary>
 		/// 异步工厂实例指针
 		/// </summary>
 		/// <returns>返回:成功,异步工厂实例指针;失败,返回nullptr</returns>
-		std::shared_ptr<AsyncFactoryBase> CreateAsyncFactor();
+		AsyncFactoryBasePtr CreateAsyncFactor();
 	}
 }
 
