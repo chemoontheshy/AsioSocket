@@ -22,9 +22,19 @@ hs::net::AsyncUDPSocket::AsyncUDPSocket(asio::io_context& context, const AsyncPa
 	doReadLoop();
 }
 
+AsyncUDPSocket::~AsyncUDPSocket()
+{
+	//必须需要这一步，不然析构的时候不无法退出readloop
+	if (m_pUDPSocket->is_open())
+	{
+		m_pUDPSocket->close();
+		std::cout << "~AsyncUDPSocket" << std::endl;
+	}
+}
+
 size_t AsyncUDPSocket::write(const Packet& __HS_IN packet)
 {
-	if (m_pUDPSocket && packet.Data && packet.Length > 0)
+	if (m_pUDPSocket->is_open() && packet.Data && packet.Length > 0)
 	{
 		return m_pUDPSocket->send_to(asio::buffer(packet.Data, packet.Length),
 									m_pRemoteEndPoint, 0, m_pErrorCode);
@@ -36,7 +46,7 @@ size_t AsyncUDPSocket::write(const Packet& __HS_IN packet)
 
 void hs::net::AsyncUDPSocket::doReadLoop()
 {
-	if (m_pUDPSocket)
+	if (m_pUDPSocket->is_open())
 	{
 		m_pUDPSocket->async_receive_from(asio::buffer(m_pPacket.Data, m_pPacket.Length),
 			m_pLocalEndPoint, std::bind(&AsyncUDPSocket::readHandle, this, std::placeholders::_1, std::placeholders::_2));

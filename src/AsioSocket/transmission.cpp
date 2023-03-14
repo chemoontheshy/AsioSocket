@@ -1,7 +1,7 @@
 #include "transmission.h"
-#include "asyncFactory.h"
+#include "imp/asyncFactory.h"
 
-std::shared_ptr<hs::net::AsyncFactoryBase> hs::net::CreateAsyncFactor()
+hs::net::AsyncFactoryBasePtr hs::net::CreateAsyncFactor()
 {
 	return AsyncFactoryBasePtr(new AsyncFactory());
 }

@@ -6,7 +6,6 @@ using namespace hs::net;
 hs::net::AsyncFactory::AsyncFactory(const size_t count) :m_iIndex(0),
 	m_lstIoContext(count), m_lstWork(count)
 {
-	std::cout << "count" << std::endl;
 	for (size_t i = 0; i < count; i++)
 	{
 		m_lstWork[i] = std::unique_ptr<asio::io_context::work>(new asio::io_context::work(m_lstIoContext[i]));

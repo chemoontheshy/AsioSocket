@@ -1,7 +1,7 @@
 #ifndef __HS_ASYNC_UDP_SOCKET__
 #define __HS_ASYNC_UDP_SOCKET__
-#include "transmission.h"
-#include "structurer.h"
+#include "../transmission.h"
+#include "../structurer.h"
 
 #include <asio.hpp>
 
@@ -23,6 +23,7 @@ namespace hs
 			/// <param name="asyncRecvData">回调函数</param>
 			AsyncUDPSocket(asio::io_context& context, const AsyncParam& asyncParam, AsyncRecvData asyncRecvData,void* pUser);
 
+			~AsyncUDPSocket();
 			/// <summary>
 			/// 发送
 			/// </summary>

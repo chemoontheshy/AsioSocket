@@ -19,15 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\AsioSocket\asyncFactory.cpp" />
-    <ClCompile Include="..\..\src\AsioSocket\asyncUDPSocket.cpp" />
+    <ClCompile Include="..\..\src\AsioSocket\imp\asyncFactory.cpp" />
+    <ClCompile Include="..\..\src\AsioSocket\imp\asyncUDPSocket.cpp" />
     <ClCompile Include="..\..\src\AsioSocket\main.cpp" />
     <ClCompile Include="..\..\src\AsioSocket\transmission.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\AsioSocket\asyncFactory.h" />
-    <ClInclude Include="..\..\src\AsioSocket\asyncUDPSocket.h" />
     <ClInclude Include="..\..\src\AsioSocket\hs_utils.h" />
+    <ClInclude Include="..\..\src\AsioSocket\imp\asyncFactory.h" />
+    <ClInclude Include="..\..\src\AsioSocket\imp\asyncUDPSocket.h" />
     <ClInclude Include="..\..\src\AsioSocket\structurer.h" />
     <ClInclude Include="..\..\src\AsioSocket\transmission.h" />
   </ItemGroup>

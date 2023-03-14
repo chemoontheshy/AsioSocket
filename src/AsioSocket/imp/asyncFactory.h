@@ -1,6 +1,6 @@
 #ifndef __HS_ASYNC_FACTORY_H__
 #define __HS_ASYNC_FACTORY_H__
-#include "transmission.h"
+#include "../transmission.h"
 #include <vector>
 
 #include "asio.hpp"
@@ -22,13 +22,26 @@ namespace hs
 			/// <param name="count"></param>
 			AsyncFactory(const size_t count = std::thread::hardware_concurrency());
 
+			/// <summary>
+			/// 析构函数
+			/// </summary>
 			~AsyncFactory();
 
+			/// <summary>
+			/// 创建Socket
+			/// </summary>
+			/// <param name="asyncParam">参数</param>
+			/// <param name="asyncRecvData">回到函数</param>
+			/// <param name="pUser">传入指针</param>
+			/// <returns></returns>
 			AsyncBasePtr CreateAsyncBase(const AsyncParam& __HS_IN asyncParam, AsyncRecvData asyncRecvData,void* pUser) override;
 
 		private:
+			/// <summary>支持并发的最大数量</summary>
 			size_t                                               m_iIndex;
+			/// <summary>线程池</summary>
 			std::vector<std::thread>                             m_lstThread;
+			/// <summary>权柄池</summary>
 			std::vector<asio::io_context>                        m_lstIoContext;
 
 			/// <summary>
